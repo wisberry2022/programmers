@@ -34,29 +34,7 @@ const isPrimeFactor = (factorSet) => {
   return primeFactorz;
 }
 
-const solution = (a, b) => {
-  if (a == b) {
-    return 1;
-  } else {
-    let lcd = getLcd(a,b);
-    if (lcd === 1) {
-      let factorSet = Array.from({length:b}, (_,k) => k+1).filter(it => b % it == 0);
-      let primeFactorz = isPrimeFactor(factorSet);
-      return primeFactorz.filter(it => ![2,5].includes(it)).length !== 0 ? 2 : 1;      
-    }else {
-      a /= lcd, b /= lcd;
-      if (b == 1) {
-        return 1;
-      }else {
-        let factorSet = Array.from({length:b}, (_,k) => k+1).filter(it => b % it == 0);
-        let primeFactorz = isPrimeFactor(factorSet);
-        return primeFactorz.filter(it => ![2,5].includes(it)).length !== 0 ? 2 : 1;
-      }
-    }
-  }
-}
-
-const solution2 = (a,b) => {
+const solution = (a,b) => {
   //22-11-08
   let primeFactorz;
   const checkSet = [2,5];
@@ -66,33 +44,24 @@ const solution2 = (a,b) => {
     const lcd = getLcd(a,b);
     if (lcd !== 1) {
       //0-a. 최대공약수 존재 시 -> 최대공약수를 통해 a와 b를 약분하여 기약분수로 만든다.
-      console.log(`${a}와 ${b}는 기약분수가 아님 ${lcd}`)
       //0-a-1. a와 b를 최대공약수로 나누어 기약 분수로 만든다.
       a /= lcd, b/=lcd;
-      console.log(`${lcd}로 나눈 뒤 a와 b ${a} ${b}`)
       if (b === 1) {
         return 1; 
       }else {
         //0-a-2. 분모 b의 인수를 구한다.
         let factorSet = Array.from({length:b}, (_,k) => k+1).filter(it => b%it === 0);
-        console.log(`${b}의 인수 ${factorSet}`);
         //0-a-3.factorSet에서 소인수를 구한다.
         primeFactorz = isPrimeFactor(factorSet);
-        console.log(`${b}의 소인수들 ${primeFactorz}`);
-        console.log('2와 5 이외의 소수',primeFactorz.filter(it => !checkSet.includes(it)));
         return primeFactorz.filter(it => !checkSet.includes(it)).length !== 0 ? 2 : 1;
       }
     }else {
     //0-b. 최대공약수 없을 시 -> 그 자체가 기약분수임으로 곧바로 유한소수 판별
-      console.log(`${a}와 ${b}는 기약분수이다 ${lcd}`)
       if (b===1) {
         return 1;
       }else {
         let factorSet = Array.from({length:b}, (_,k) => k+1).filter(it => b%it === 0);
-        console.log(`${b}의 인수 ${factorSet}`);
         primeFactorz = isPrimeFactor(factorSet);
-        console.log(`${b}의 소인수들 ${primeFactorz}`);
-        console.log('2와 5 이외의 소수',primeFactorz.filter(it => !checkSet.includes(it)));
         return primeFactorz.filter(it => !checkSet.includes(it)).length !== 0 ? 2 : 1;  
       }  
     };
@@ -101,6 +70,28 @@ const solution2 = (a,b) => {
     return 1;
   }  
 }
+
+// const solution = (a, b) => {
+//   if (a == b) {
+//     return 1;
+//   } else {
+//     let lcd = getLcd(a,b);
+//     if (lcd === 1) {
+//       let factorSet = Array.from({length:b}, (_,k) => k+1).filter(it => b % it == 0);
+//       let primeFactorz = isPrimeFactor(factorSet);
+//       return primeFactorz.filter(it => ![2,5].includes(it)).length !== 0 ? 2 : 1;      
+//     }else {
+//       a /= lcd, b /= lcd;
+//       if (b == 1) {
+//         return 1;
+//       }else {
+//         let factorSet = Array.from({length:b}, (_,k) => k+1).filter(it => b % it == 0);
+//         let primeFactorz = isPrimeFactor(factorSet);
+//         return primeFactorz.filter(it => ![2,5].includes(it)).length !== 0 ? 2 : 1;
+//       }
+//     }
+//   }
+// }
 
 const result = solution(50,20);
 console.log(result);

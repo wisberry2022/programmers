@@ -5,7 +5,7 @@ const solution = (s) => {
     const reg = new RegExp(`${it}`, 'g');
     s = s.replace(reg, String(idx));
   })
-  console.log(Number(s));
+  return Number(s);
 }
 
 solution("1zerotwozero3");
